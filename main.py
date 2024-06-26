@@ -8,7 +8,7 @@ from app.hendlers.hendlers import router
 
 
 async def main():
-    bot = Bot(token='5975408409:AAEDbY6RpKAu0hksILn3-tcNahw276EFg98')
+    bot = Bot(token='6759412663:AAFIqFKflLxIpHQU8Hb3YpJGzJfKQ5EveEU')
     dp = Dispatcher()
     dp.include_router(router)
     await dp.start_polling(bot)

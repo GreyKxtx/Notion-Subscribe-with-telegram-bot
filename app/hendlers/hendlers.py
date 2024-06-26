@@ -20,9 +20,8 @@ router = Router()
 async def start(message: Message):
     user_id = message.from_user.id
     existing_user = db.collection.find_one({"user_id": user_id})
-
     if existing_user:
-        await message.answer('Вітаемо! Ваш аккаунт вже створенний.', reply_markup=rkb.main)
+        await message.answer('Вітаємо! Ваш аккаунт вже иснує.\n Для вводу пошти необхідно ввести команду /login', reply_markup=rkb.main)
     else:
         # Создаем аккаунт пользователя в базе данных с дополнительными полями
         db.save_user_data(
@@ -34,7 +33,7 @@ async def start(message: Message):
             subscription_type=""
         )
 
-        await message.answer('Вітаемо! Ваш аккаунт створен успішно.', reply_markup=rkb.main)
+        await message.answer('Вітаємо! Ви успішно зарєестровались.\n Для вводу пошти необхідно ввести команду /login', reply_markup=rkb.main)
 
 
 class Register(StatesGroup):
@@ -52,7 +51,7 @@ async def register_gmail(message: Message, state: FSMContext):
     await state.update_data(gmail=message.text)
     data = await state.get_data()
     user_id = message.from_user.id
-    await message.answer(f'Почта {data["gmail"]} зарегестрированна ')
+    await message.answer(f'Почта {data["gmail"]} зареєстрована усішно ! ')
     db.update_user_data(
         user_id=user_id,
         email=data['gmail'],  # Здесь можно добавить дополнительные данные, если они необходимы
@@ -102,7 +101,7 @@ async def subscribe(callback: CallbackQuery):
         await invite_message.edit_text("Запрошення надіслано успішно!")
 
         current_date = datetime.now().strftime("%Y-%m-%d")
-        end_date = (datetime.now() + timedelta(seconds=30)).strftime("%Y-%m-%d")
+        end_date = (datetime.now() + timedelta(days=30)).strftime("%Y-%m-%d")
 
         db.update_user_data(user_id=user_id, start_date=current_date, end_date=end_date, subscription_status="Активна",
                             subscription_type="1 Місяць")

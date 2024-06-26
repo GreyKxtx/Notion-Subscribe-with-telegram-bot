@@ -53,7 +53,7 @@ async def print_user_data(user_id, message):
             user_data['end_date'] = datetime.strptime(user_data['end_date'], '%Y-%m-%d')
 
         response += f"Дата початку: {user_data['start_date'].strftime('%Y-%m-%d') if user_data['start_date'] else ''}\n"
-        response += f"дата закінчення: {user_data['end_date'].strftime('%Y-%m-%d') if user_data['end_date'] else ''}\n"
+        response += f"Дата закінчення: {user_data['end_date'].strftime('%Y-%m-%d') if user_data['end_date'] else ''}\n"
         response += f"Статус підписки: {user_data['subscription_status']}\n"
         response += f"Тип підписки: {user_data['subscription_type']}"
         await message.answer(response)
